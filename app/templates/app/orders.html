@@ -1,0 +1,91 @@
+{% extends 'app/base.html' %} {% load static %} {% block title %}Orders{%endblock title %} {% block main-content %}
+<div class="container my-5">
+  <div class="row">
+    <h3 class="text-capitalize">Welcome {{request.user}}</h3>
+    <div class="col-sm-2 border-end">
+      <ul class="list-unstyled">
+        <li class="d-grid">
+          <a href="{% url 'orders' %}" class="btn btn-primary">Orders</a>
+        </li>
+      </ul>
+    </div>
+    <div class="col-sm-10 offset-sm-1">
+      {% for order in orders %}
+      <hr>
+      <div class="row mb-3">
+        <div class="col-sm-2">
+          <div class="item img-fluid">
+            <img
+              src="{{order.product.product_img.url}}"
+              alt=""
+              width="150"
+              height="150px"
+            />
+          </div>
+        </div>
+
+        <div class="col-sm-6 fw-bold"></div>
+          <p class="fw-bold mt-3">Product : {{order.product.title}}</p>
+          <p class="fw-bold">Quantity : {{order.quantity}}</p>
+          <p class="fw-bold">Price : {{order.total_coast}}</p>
+
+        <div class="col-sm-4 fw-bold">
+          <p>Order Status : {{order.status}}</p>
+
+
+          {% if  order.status == "Pending" %}
+     <div class="progress">
+      <div class="progress-bar" role=:"progressbar" style="width:5%"
+      aria-valuemax="100" aria-valuemin="20" aria-valuenow="5">
+    </div>
+   </div>
+     
+     
+     {% endif %}
+           
+     {% if  order.status == "Accepted" %}
+     <div class="progress">
+      <div class="progress-bar" role=:"progressbar" style="width:20%"
+      aria-valuemax="100" aria-valuemin="20" aria-valuenow="20">
+    </div>
+   </div>
+     
+     
+     {% endif %}
+
+     {% if  order.status == "Packed" %}
+     <div class="progress">
+      <div class="progress-bar" role=:"progressbar" style="width:40%"
+      aria-valuemax="100" aria-valuemin="20" aria-valuenow="40">
+    </div>
+   </div>
+     
+     
+     {% endif %}
+
+     {% if  order.status == "On The Way" %}
+     <div class="progress">
+      <div class="progress-bar" role=:"progressbar" style="width:70%"
+      aria-valuemax="100" aria-valuemin="20" aria-valuenow="70">
+    </div>
+   </div>
+     
+     
+     {% endif %}
+
+     {% if  order.status == "Delevired" %}
+     <div class="progress">
+      <div class="progress-bar" role=:"progressbar" style="width:100%"
+      aria-valuemax="100" aria-valuemin="20" aria-valuenow="100">
+    </div>
+   </div>
+     
+     
+     {% endif %}
+
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+</div>
+{% endblock main-content %}
